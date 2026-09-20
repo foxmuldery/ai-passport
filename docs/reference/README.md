@@ -17,6 +17,12 @@ The engineering rules themselves live under
 
 ## Contributors
 
+### foxmuldery
+
+**Application handoff:**
+
+- [Worry Seed](foxmuldery/worry-seed-handoff.md) — complete source, build, flashing, and physical-test handoff for the offline voice garden.
+
 ### Shinku-Chen
 
 **Experience entries:**

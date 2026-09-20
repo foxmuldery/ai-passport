@@ -10,6 +10,12 @@
 
 ## 贡献者
 
+### foxmuldery
+
+**应用交接：**
+
+- [烦恼种子](foxmuldery/worry-seed-handoff.zh_CN.md) — 离线语音花园的完整源码、构建、刷机与真机测试交接。
+
 ### Shinku-Chen
 
 **经验条目：**
