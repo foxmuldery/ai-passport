@@ -3,6 +3,7 @@
 #include "bsp_i2c.h"
 #include "esp_log.h"
 #include "worry_seed_app.h"
+#include "worry_seed_screenshot.h"
 
 static const char *TAG = "main";
 
@@ -16,6 +17,9 @@ void app_main(void) {
     bsp_display_backlight(82);
     esp_err_t audio_err = bsp_audio_init();
     if (audio_err != ESP_OK) ESP_LOGW(TAG, "音频初始化失败: %s", esp_err_to_name(audio_err));
+    else bsp_audio_set_volume(60);
     esp_err_t app_err = worry_seed_app_start();
     if (app_err != ESP_OK) ESP_LOGE(TAG, "应用启动失败: %s", esp_err_to_name(app_err));
+    esp_err_t screenshot_err = worry_seed_screenshot_start();
+    if (screenshot_err != ESP_OK) ESP_LOGW(TAG, "screenshot protocol start failed: %s", esp_err_to_name(screenshot_err));
 }

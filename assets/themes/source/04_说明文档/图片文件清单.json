@@ -1,0 +1,192 @@
+[
+  {
+    "file": "01_五种风格独立图/01_治愈像素风.png",
+    "kind": "原文件",
+    "source_filename": "像素风果树成长游戏素材表.png",
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2346389,
+    "sha256": "8dd9d8729c3808b87183f1862931b687c9e2e0d8fc669b4216ab72fed7051604",
+    "notes": ""
+  },
+  {
+    "file": "01_五种风格独立图/02_浪漫水彩风_重排导出.png",
+    "kind": "从现存总览原图重新拆分排版导出",
+    "source_filename": "a_wide_poster_like_composite_image_with_five_vert.png",
+    "width": 1296,
+    "height": 1072,
+    "bytes": 1584430,
+    "sha256": "26962aad7e851b8fbcf60ce330fa56667dc31b313ac3e80c086c679e036e26ee",
+    "notes": "源图x=312:618；上下半区左右重排；2倍插值展示，不代表新增细节；不是此前独立PNG的逐字节恢复。"
+  },
+  {
+    "file": "01_五种风格独立图/03_微缩写实风_重排导出.png",
+    "kind": "从现存总览原图重新拆分排版导出",
+    "source_filename": "a_wide_poster_like_composite_image_with_five_vert.png",
+    "width": 1280,
+    "height": 1072,
+    "bytes": 1505148,
+    "sha256": "6f90822b61cbabe45f651569c27e011caa8a8d51d9d050a3368263a5357848da",
+    "notes": "源图x=620:922；上下半区左右重排；2倍插值展示，不代表新增细节；不是此前独立PNG的逐字节恢复。"
+  },
+  {
+    "file": "01_五种风格独立图/04_东方水墨风_重排导出.png",
+    "kind": "从现存总览原图重新拆分排版导出",
+    "source_filename": "a_wide_poster_like_composite_image_with_five_vert.png",
+    "width": 1284,
+    "height": 1072,
+    "bytes": 1698601,
+    "sha256": "19b48fd10f81c20b6136bed7fcefec1f6546229eb65ffb73f108638cc5e1a198",
+    "notes": "源图x=924:1227；上下半区左右重排；2倍插值展示，不代表新增细节；不是此前独立PNG的逐字节恢复。"
+  },
+  {
+    "file": "01_五种风格独立图/05_星空梦境风_重排导出.png",
+    "kind": "从现存总览原图重新拆分排版导出",
+    "source_filename": "a_wide_poster_like_composite_image_with_five_vert.png",
+    "width": 1300,
+    "height": 1072,
+    "bytes": 1565358,
+    "sha256": "4901e564138b5c68bf363c3f35f3c176de7f0024de88262a1cfb724c07b93850",
+    "notes": "源图x=1229:1536；上下半区左右重排；2倍插值展示，不代表新增细节；不是此前独立PNG的逐字节恢复。"
+  },
+  {
+    "file": "02_历次总览与初稿/01_像素风初稿.png",
+    "kind": "原文件",
+    "source_filename": "像素风成长树游戏素材表.png",
+    "width": 1448,
+    "height": 1086,
+    "bytes": 2134885,
+    "sha256": "38396dfa18fb59c7dbebe6913b7137958e8800bb7d8d41e1b2fcd79b6e247a79",
+    "notes": ""
+  },
+  {
+    "file": "02_历次总览与初稿/02_五风格总览_01.png",
+    "kind": "原文件",
+    "source_filename": "a_clean_tall_infographic_style_illustration_poste.png",
+    "width": 1122,
+    "height": 1402,
+    "bytes": 2432700,
+    "sha256": "5b57410801526c95fc2f67bbd41226f356197b49c0b589c8d3c92d2a2ead5d89",
+    "notes": ""
+  },
+  {
+    "file": "02_历次总览与初稿/03_五风格总览_02.png",
+    "kind": "原文件",
+    "source_filename": "a_wide_composite_illustration_made_of_five_vertica.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2672511,
+    "sha256": "45ab5ec290a58571b42edd8c4b62b63ff33caddf6b11b2aff33ee82b115ee643",
+    "notes": ""
+  },
+  {
+    "file": "02_历次总览与初稿/04_五风格总览_03_独立图重排来源.png",
+    "kind": "原文件",
+    "source_filename": "a_wide_poster_like_composite_image_with_five_vert.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2761273,
+    "sha256": "0be9dd683237391055351f1de8684dc35157713424949ae8591bd12bb6221710",
+    "notes": ""
+  },
+  {
+    "file": "02_历次总览与初稿/05_五风格总览_04.png",
+    "kind": "原文件",
+    "source_filename": "a_wide_tall_vertically_oriented_multi_panel_illu.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2662751,
+    "sha256": "cd7b5894148992825cd5290fb6ca20bdea532e7b64d4daeb0aee0c9b786851a4",
+    "notes": ""
+  },
+  {
+    "file": "02_历次总览与初稿/06_五风格总览_05.png",
+    "kind": "原文件",
+    "source_filename": "a_wide_detailed_multi_panel_illustration_poster.png",
+    "width": 1619,
+    "height": 971,
+    "bytes": 2632365,
+    "sha256": "9c2834be2e26827d3cb545174e32f6e49d0e3b644c2fb28b2424c996ab2f9398",
+    "notes": ""
+  },
+  {
+    "file": "02_历次总览与初稿/07_五风格总览_06.png",
+    "kind": "原文件",
+    "source_filename": "a_wide_composite_illustration_poster_clean_grid_l.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2759185,
+    "sha256": "8793e2ae0ebc3e57d25f0bfee8f79d282eab687f563026e68d00140a51f61fc6",
+    "notes": ""
+  },
+  {
+    "file": "03_过程预览与检查图/01_水彩预览_早期.jpg",
+    "kind": "原有过程预览或检查图",
+    "source_filename": "02_watercolor_preview.jpg",
+    "width": 1024,
+    "height": 768,
+    "bytes": 203694,
+    "sha256": "4974b9314bfb96f91d01bc2e68a55f6f65207b562e4424e585dd8d3e0722c616",
+    "notes": ""
+  },
+  {
+    "file": "03_过程预览与检查图/02_水彩预览_后期.jpg",
+    "kind": "原有过程预览或检查图",
+    "source_filename": "02_watercolor_preview.jpg",
+    "width": 1024,
+    "height": 768,
+    "bytes": 200146,
+    "sha256": "ffddc20e79edd24802a17f60bf55e046603dc4ba67fbf775eb1e8be9b8dbdf67",
+    "notes": ""
+  },
+  {
+    "file": "03_过程预览与检查图/03_微缩写实预览.jpg",
+    "kind": "原有过程预览或检查图",
+    "source_filename": "03_realistic_preview.jpg",
+    "width": 1024,
+    "height": 768,
+    "bytes": 213125,
+    "sha256": "a131668460f2874f9087e66a2bd72299ab60d207740d7699c81a502115f4b612",
+    "notes": ""
+  },
+  {
+    "file": "03_过程预览与检查图/04_东方水墨预览.jpg",
+    "kind": "原有过程预览或检查图",
+    "source_filename": "04_ink_preview.jpg",
+    "width": 1024,
+    "height": 768,
+    "bytes": 193796,
+    "sha256": "0fc03f5ecec8b7b7c02ca9e35f01484f106fc844bd83c3c9a488f29a50ea1df3",
+    "notes": ""
+  },
+  {
+    "file": "03_过程预览与检查图/05_星空梦境预览.jpg",
+    "kind": "原有过程预览或检查图",
+    "source_filename": "05_starlight_preview.jpg",
+    "width": 1024,
+    "height": 768,
+    "bytes": 202728,
+    "sha256": "961c6d714bfcf22afa81a23fbdaa92d8830524d985f387cdbbc02f72d8f31e83",
+    "notes": ""
+  },
+  {
+    "file": "03_过程预览与检查图/06_水彩单列检查图.png",
+    "kind": "原有过程预览或检查图",
+    "source_filename": "watercolor_column_check.png",
+    "width": 616,
+    "height": 2048,
+    "bytes": 1509933,
+    "sha256": "85e32a9029a21ff6fbc0887c16457f7a6aff51d1172cc8e878455954f0bf685f",
+    "notes": ""
+  },
+  {
+    "file": "03_过程预览与检查图/07_底部局部检查图.png",
+    "kind": "原有过程预览或检查图",
+    "source_filename": "inspect_bottom.png",
+    "width": 980,
+    "height": 740,
+    "bytes": 765162,
+    "sha256": "7fe036a022436e4043989b3739e6006a5898571a265ec056f0c758b4e07dfc43",
+    "notes": ""
+  }
+]

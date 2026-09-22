@@ -23,7 +23,20 @@ static void rounded_flush_event(lv_event_t *event)
     }
 
     const int32_t width = lv_area_get_width(area);
-    if (draw_buf->header.stride < (uint32_t)width * sizeof(uint16_t)) return;
+    const int32_t height = lv_area_get_height(area);
+    const uint32_t row_bytes = (uint32_t)width * sizeof(uint16_t);
+    if (width <= 0 || height <= 0 || draw_buf->header.stride < row_bytes) return;
+    // LV_EVENT_FLUSH_START reports the dirty area while the active buffer can
+    // be smaller than the display in partial-render mode. Never let rounded
+    // masking address beyond the actual DMA buffer even if those disagree.
+    const uint64_t required = (uint64_t)(height - 1) * draw_buf->header.stride + row_bytes;
+    if (required > draw_buf->data_size) {
+        ESP_LOGE(TAG, "rounded flush bounds mismatch: area=%ldx%ld stride=%lu size=%lu",
+                 (long)width, (long)height,
+                 (unsigned long)draw_buf->header.stride,
+                 (unsigned long)draw_buf->data_size);
+        return;
+    }
 
     for (int32_t y = area->y1; y <= area->y2; ++y) {
         if (y >= BSP_LVGL_SCREEN_RADIUS &&

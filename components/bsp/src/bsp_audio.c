@@ -329,8 +329,9 @@ esp_err_t bsp_audio_set_format(uint32_t hz, uint8_t bits, uint8_t ch) {
 
     // ⚠ open 之后【不要】手动覆写 ES8311 的时钟分频寄存器(REG01~06):
     //   驱动已按采样率与 MCLK 精确算好,覆写会导致 ADC/DAC 时序错乱、录音回放全是杂音。
-    //   这里只设麦克风模拟 PGA 增益。
-    esp_codec_dev_set_in_gain(s_dev, 30.0f);
+    //   这里只设麦克风模拟 PGA 增益。42 dB 是 ES8311 的最高硬件档位，
+    //   用于本机实测仍偏小的近距离语音录入。
+    esp_codec_dev_set_in_gain(s_dev, 42.0f);
 
     s_opened = true; s_hz = hz; s_bits = bits; s_ch = ch;
     ESP_LOGI(TAG, "codec 打开 %luHz/%ubit/%uch", (unsigned long)hz, bits, ch);

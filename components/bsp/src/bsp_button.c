@@ -94,7 +94,6 @@ esp_err_t bsp_button_init(bsp_btn_cb_t cb, void *user) {
     }
 
     s_cb = cb; s_user = user;
-
     // 先由 BSP 建 unit,再把句柄交给 button 组件(button_adc.h:adc_handle 非 NULL 即复用),
     // 这样本文件的 bsp_button_read_mv() 也能读同一路 ADC。
     const adc_oneshot_unit_init_cfg_t ucfg = { .unit_id = BSP_BTN_ADC_UNIT };

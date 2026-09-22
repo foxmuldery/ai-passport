@@ -155,7 +155,7 @@ The MCU is I2S master and the ES8311 is slave. I2S0 TX/RX shares MCLK GPIO6, BCL
 - Preserve the I2S enable/disable sequence around close/open.
 - Do not write ES8311 clock-divider registers after open; the driver derives them from sample rate and 256×fs MCLK.
 - Keep `no_dac_ref=true` for mono microphone input; false can produce all-zero capture.
-- Microphone analog gain is 30 dB; output volume is a separate 0–100% value.
+- Microphone analog gain is 42 dB; output volume is a separate 0–100% value.
 - `bsp_audio_read/write` block and must not run in button callbacks or the LVGL task.
 - I2S DMA uses six descriptors of 240 frames each.
 - Stop every PCM reader and writer before calling `bsp_audio_sleep()`. It executes the complete ES8311 suspend register sequence directly through the already-open control interface, independently of the codec-device opened flag, so a boot that never played audio does not need a silent open. It reads back registers `0x00`, `0x01`, `0x0D`, `0x0E`, `0x12`, and `0x45`, retries the full sequence once after 5 ms, and explicitly disables both I2S channels even when audio was never opened.

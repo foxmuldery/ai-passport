@@ -24,8 +24,12 @@ typedef struct {
     uint32_t reserved;
 } audio_header_t;
 
-typedef enum { AUDIO_CMD_RECORD, AUDIO_CMD_PLAY, AUDIO_CMD_STOP } audio_command_type_t;
-typedef struct { audio_command_type_t type; uint16_t recording_id; } audio_command_t;
+typedef enum { AUDIO_CMD_RECORD, AUDIO_CMD_PLAY, AUDIO_CMD_STOP, AUDIO_CMD_TONE } audio_command_type_t;
+typedef struct {
+    audio_command_type_t type;
+    uint16_t recording_id;
+    worry_audio_tone_t tone;
+} audio_command_t;
 
 static const char *TAG = "worry_audio";
 static QueueHandle_t s_queue;
@@ -107,6 +111,7 @@ static void play_file(uint16_t id) {
     if (bsp_audio_set_format(WORRY_AUDIO_SAMPLE_RATE, 16, 1) != ESP_OK) {
         notify(WORRY_AUDIO_EVENT_ERROR, id, 0); return;
     }
+    bsp_audio_set_volume(100);
     FILE *file = worry_seed_store_audio_open(id, "rb");
     if (!file) { notify(WORRY_AUDIO_EVENT_ERROR, id, 0); return; }
     audio_header_t header;
@@ -134,8 +139,57 @@ static void play_file(uint16_t id) {
         check_stop_commands();
     }
     fclose(file);
-    notify(WORRY_AUDIO_EVENT_PLAYBACK_FINISHED, id,
+    notify(s_stop ? WORRY_AUDIO_EVENT_PLAYBACK_STOPPED : WORRY_AUDIO_EVENT_PLAYBACK_FINISHED, id,
            (uint16_t)(header.sample_count / WORRY_AUDIO_SAMPLE_RATE));
+}
+
+static bool write_note(uint16_t hz, uint16_t milliseconds) {
+    enum { CHUNK_SAMPLES = 256, AMPLITUDE = 7000 };
+    int16_t pcm[CHUNK_SAMPLES];
+    uint32_t total = (WORRY_AUDIO_SAMPLE_RATE * (uint32_t)milliseconds) / 1000U;
+    uint32_t phase = 0;
+    uint32_t period = hz ? WORRY_AUDIO_SAMPLE_RATE / hz : 1;
+    if (period < 2) period = 2;
+    while (total) {
+        size_t count = total < CHUNK_SAMPLES ? total : CHUNK_SAMPLES;
+        for (size_t i = 0; i < count; ++i) {
+            pcm[i] = hz == 0 ? 0 :
+                     ((phase % period) < period / 2U ? AMPLITUDE : -AMPLITUDE);
+            phase++;
+        }
+        if (bsp_audio_write(pcm, count * sizeof(pcm[0])) != ESP_OK) return false;
+        total -= count;
+    }
+    return true;
+}
+
+static void play_tone(worry_audio_tone_t tone) {
+    if (bsp_audio_set_format(WORRY_AUDIO_SAMPLE_RATE, 16, 1) != ESP_OK) {
+        ESP_LOGW(TAG, "button tone format open failed");
+        return;
+    }
+    // bsp_audio_set_volume() is a no-op before the codec is open. The tone
+    // can be the first output after boot, so set volume after set_format().
+    bsp_audio_set_volume(80);
+    bool ok = true;
+    switch (tone) {
+        case WORRY_AUDIO_TONE_PLANT:
+            ok = write_note(520, 60) && write_note(760, 85);
+            break;
+        case WORRY_AUDIO_TONE_VOICE:
+            ok = write_note(440, 80) && write_note(660, 110);
+            break;
+        case WORRY_AUDIO_TONE_FRUIT:
+            ok = write_note(523, 90) && write_note(659, 90) && write_note(784, 90) &&
+                 write_note(1047, 180) && write_note(0, 50) &&
+                 write_note(784, 90) && write_note(1047, 240);
+            break;
+        case WORRY_AUDIO_TONE_BUTTON:
+        default:
+            ok = write_note(900, 48);
+            break;
+    }
+    if (!ok) ESP_LOGW(TAG, "tone output failed");
 }
 
 static void audio_task(void *arg) {
@@ -147,6 +201,7 @@ static void audio_task(void *arg) {
         s_busy = true;
         if (command.type == AUDIO_CMD_RECORD) record_file(command.recording_id);
         else if (command.type == AUDIO_CMD_PLAY) play_file(command.recording_id);
+        else if (command.type == AUDIO_CMD_TONE) play_tone(command.tone);
         s_busy = false;
     }
 }
@@ -175,4 +230,16 @@ static bool send(audio_command_type_t type, uint16_t id) {
 bool worry_seed_audio_record(uint16_t recording_id) { return recording_id && send(AUDIO_CMD_RECORD, recording_id); }
 bool worry_seed_audio_play(uint16_t recording_id) { return recording_id && send(AUDIO_CMD_PLAY, recording_id); }
 bool worry_seed_audio_stop(void) { return s_busy && send(AUDIO_CMD_STOP, 0); }
+bool worry_seed_audio_beep(void) {
+    return worry_seed_audio_tone(WORRY_AUDIO_TONE_BUTTON);
+}
+bool worry_seed_audio_tone(worry_audio_tone_t tone) {
+    if (!s_queue || tone > WORRY_AUDIO_TONE_FRUIT) return false;
+    audio_command_t command = {
+        .type = AUDIO_CMD_TONE,
+        .recording_id = 0,
+        .tone = tone,
+    };
+    return xQueueSend(s_queue, &command, 0) == pdTRUE;
+}
 bool worry_seed_audio_busy(void) { return s_busy; }

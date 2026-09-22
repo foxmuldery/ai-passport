@@ -2,125 +2,140 @@
   <a href="worry-seed-handoff.zh_CN.md">简体中文</a> · <strong>English</strong>
 </p>
 
-# Worry Seed Handoff
+# Worry Seed Current Handoff
 
 ## Delivery snapshot
 
-- Product: **Worry Seed**, an offline voice companion for AI Passport.
-- Branch: `feature/worry-seed`; base: `main` at `cd73a8a` before the feature commit.
+- Product: **Worry Seed**, a private offline voice garden running on AI Passport.
+- Current local branch: `feature/worry-seed-experience`.
+- Published GitHub branch at the time of this snapshot: `feature/worry-seed` at the original `783ba34` feature commit. The newer workspace has not been committed or pushed yet.
 - Target: ESP32-C3, 8 MB Flash, 240 × 320 portrait display, three ADC-ladder buttons, ES8311 audio codec, no PSRAM.
-- Toolchain: ESP-IDF 5.5.3. Wi-Fi and Bluetooth are excluded from the minimal application build.
-- Merged image: `build/FoloToy-AI-Passport-full.bin`, flash at `0x0`.
-- Validated size: 823,824 bytes.
-- SHA-256: compute after building the final checked-out commit; ESP-IDF embeds the Git version, so the digest changes when the commit changes.
+- Toolchain: ESP-IDF 5.5.3. Wi-Fi and Bluetooth are excluded from the application build.
+- Merged image: `build/FoloToy-AI-Passport-full.bin`, flashed at `0x0`.
+- Current merged-image size: 3,057,696 bytes. The factory application has about 3% free space, so new embedded assets require explicit size review.
+- Release digest: rebuild and compute after the final commit; ESP-IDF embeds the Git version and the digest changes with source state.
 
-The generated `build/` directory is intentionally not committed. Rebuild from committed source before flashing, or transfer the separately delivered validated image to the local workstation.
+The generated `build/` directory is not a source release. Rebuild from the final committed state before distribution.
+
+## Product language
+
+- Promotional line: **Speak it. Bury it in the soil. Let it bloom and bear fruit.**
+- The shorter in-device empty-garden line remains deliberately compact for the 240-pixel screen.
+- User-facing language describes progress as **watering**, not companionship or automatic healing.
+- The app does not promise that every worry will be solved and makes no medical or diagnostic claim.
 
 ## Product behavior
 
-Each spoken worry becomes a seed. Follow-up recordings make it grow; marking the problem resolved produces fruit.
+Each spoken worry becomes a seed. Follow-up recordings water it through five visual stages; marking the worry resolved creates fruit and plays a celebration melody.
 
 | State | Rule | Display |
 | --- | --- | --- |
 | Seed | No follow-up | Seed in soil |
-| Sprout | One follow-up | Small sprout |
-| Sapling | Two or three follow-ups | Young tree |
-| Tree | Four or five follow-ups | Full tree |
-| Fruit | Marked resolved | Tree with fruit |
+| Sprout | One follow-up | New sprout |
+| Sapling | Two or three follow-ups | Young plant |
+| Tree | Four or five follow-ups | Mature tree |
+| Fruit | Marked resolved | Growth fruit |
 
-The garden holds up to 12 seeds. Each has one original recording and up to five progress recordings. Categories are work, relationship, family, health, and other. Resolved seeds remain reviewable. Deletion commits the model update before removing referenced audio.
+The garden holds up to 12 seeds. Each seed has one original recording and up to five progress recordings. Categories are work, relationships, family, health, and other. The detail page can play the original worry, play the latest progress, record another progress entry, resolve, delete, or return.
 
 ## Interaction map
 
-| Screen | UP / DOWN | OK click | OK long press |
+| Screen | `UP` / `DOWN` | `OK` click | `OK` long press |
 | --- | --- | --- | --- |
-| Garden | Select seed | Open seed | Plant new seed |
+| Garden | Select seed | Open selected seed | Plant a new seed |
 | Category | Select category | Continue | Return |
 | Recording, idle | No action | Start | Return |
 | Recording, active | No action | Finish | Cancel |
 | Detail | Select action | Run action | Return to garden |
 | Confirmation | No action | Confirm | Cancel |
 
-Detail actions play the original worry, record progress, resolve, delete, or return. OK stops active playback.
+`UP` and `DOWN` navigation use the low-latency press path. The selected existing seed still opens with an `OK` click. Clicking `OK` while playback is active stops it and reports a stopped state rather than natural completion.
+
+## Current experience implementation
+
+- The pixel-garden background fills the 240 × 320 screen.
+- Growth images and action icons use independent transparent layers.
+- The microphone and stop icons are positioned from their unscaled center.
+- Category selection uses a compact five-row list with a clear highlight.
+- Button actions, planting, voice recording, and fruit completion have distinct tones; fruit completion uses a longer celebration sequence.
+- Microphone input gain is configured to 42 dB and recording playback uses full output volume.
+- The Chinese subset contains the application strings and punctuation checked by the font-coverage test.
+- A local USB protocol captures the LVGL framebuffer and injects simulated button events through the normal application queue.
+
+Only the pixel theme is active. Watercolor, miniature-realistic, ink, and starlight files exist as future material, but the theme setter rejects them so old NVS state cannot switch the application unexpectedly.
 
 ## Source map
 
 | Path | Responsibility |
 | --- | --- |
-| `main/main.c` | Initializes shared I2C, display/LVGL, backlight, audio BSP, and application. |
-| `main/worry_seed_app.c` | Product UI, pages, button/audio events, and model/storage coordination. |
-| `main/worry_seed_model.c` | Pure garden model, selection, growth rules, limits, and validation. |
-| `main/worry_seed_store.c` | NVS blob, CRC, SPIFFS, atomic recording commit, and deletion. |
-| `main/worry_seed_audio.c` | Non-blocking queue and worker task for capture/playback. |
-| `main/worry_seed_adpcm.c` | Platform-independent IMA ADPCM codec. |
-| `main/worry_font_16.c`, `main/worry_font_24.c` | Generated LVGL Chinese subset fonts. |
-| `assets/fonts/` | Font source/license notes and required-glyph manifest. |
-| `tests/test_worry_seed_model.c` | Host tests for garden state. |
-| `tests/test_worry_seed_adpcm.c` | Codec round-trip and error-bound test. |
-| `tests/test_worry_seed_font_coverage.py` | Verifies all Chinese UI glyphs are generated. |
-| `partitions.csv` | 3,008 KiB factory app plus 5 MiB `worryfs`. |
-| `sdkconfig.defaults` | ESP32-C3, 8 MB Flash, native USB console, LVGL, and offline defaults. |
+| `main/worry_seed_app.c` | UI, pages, copy, button/audio events, and model/storage coordination |
+| `main/worry_seed_model.c` | Testable garden model, selection, stages, limits, and validation |
+| `main/worry_seed_store.c` | NVS blob, CRC, SPIFFS, atomic recording commit, and deletion |
+| `main/worry_seed_audio.c` | Worker task for capture, playback, stop handling, and feedback tones |
+| `main/worry_seed_theme.c` | Current theme contract and single-theme enforcement |
+| `main/worry_seed_theme_assets.c` | LVGL descriptors for backgrounds, growth layers, and icons |
+| `main/worry_seed_debug_protocol.c` | USB command parser and queued simulated-button events |
+| `main/worry_seed_screenshot.c` | LVGL snapshot framing over USB Serial/JTAG |
+| `assets/themes/` | Source, derived, and firmware-ready theme material |
+| `assets/fonts/` | Font source/license notes and required-glyph manifest |
+| `tests/test_worry_seed_app_contract.py` | Input, copy, audio, volume, and layout regression contract |
+| `tests/test_worry_seed_font_coverage.py` | Chinese UI glyph and punctuation coverage |
+| `tools/capture_worry_seed_screenshot.py` | Save one 240 × 320 device framebuffer as PNG |
+| `tools/control_worry_seed.py` | Send `UP`, `DOWN`, or `OK` click/long actions over USB |
 
-Hardware behavior remains in the BSP; the application duplicates no pins or device addresses.
+Hardware facts and reusable board behavior remain in `components/bsp`; product state and screens remain in `main`.
 
 ## Persistence and audio
 
-Garden metadata uses NVS namespace `worryseed`, key `garden`. Its blob has a magic value, storage version, structure size, model, and CRC-32. Invalid data falls back to an empty garden.
+Garden metadata uses NVS namespace `worryseed`, key `garden`, with a magic value, storage version, structure size, model, and CRC-32. Invalid data falls back to an empty garden.
 
-Audio lives in the 5 MiB `worryfs` SPIFFS partition as `/worry/rNNNNN.wsad`. A `.tmp` file is finalized and atomically renamed after success. Audio is mono 8 kHz, 16-bit capture encoded as 4-bit IMA ADPCM, up to 60 seconds. A maximum-length file is about 240 KB plus its header, allowing about 20 maximum-length recordings; actual capacity varies. The model's theoretical 72 recording references do not imply space for 72 maximum-length files.
+Audio lives in the 5 MiB `worryfs` SPIFFS partition as `/worry/rNNNNN.wsad`. A `.tmp` file is finalized and atomically renamed after success. Audio is mono 8 kHz, 16-bit capture encoded as 4-bit IMA ADPCM, up to 60 seconds. A maximum-length file is about 240 KB plus its header, allowing about 20 maximum-length recordings; actual capacity varies.
 
-SPIFFS mount failure permits formatting, so important recordings must not exist only on the device. Flashing at `0x0` writes bootloader, partition table, and application without requesting a full-chip erase. An incompatible prior partition map can still make existing data unavailable or cause formatting on mount.
+SPIFFS mount failure permits formatting, so important recordings must not exist only on the device. Flashing at `0x0` writes the bootloader, partition table, and application without requesting a full-chip erase. An incompatible earlier partition map can still make data unavailable or cause formatting on mount.
 
 ## Local continuation
 
+The current work must be committed and pushed before a fresh clone can switch to `feature/worry-seed-experience`:
+
 ```sh
-git clone https://gitee.com/FoloToy/ai-passport.git
+git clone https://github.com/foxmuldery/ai-passport.git
 cd ai-passport
-git switch feature/worry-seed
+git switch feature/worry-seed-experience
 source /path/to/esp-idf-v5.5.3/export.sh
 ./tools/validate.sh
 shasum -a 256 build/FoloToy-AI-Passport-full.bin
 ```
 
-Suggested prompt for the local Codex thread:
-
-> Continue local hardware debugging of Worry Seed. Read AGENTS.md, docs/README.md, and docs/reference/foxmuldery/worry-seed-handoff.md first. Preserve existing changes. Check the branch, activate ESP-IDF 5.5.3, run complete validation, and discover the AI Passport USB Serial/JTAG port read-only. Report the device and firmware digest before requesting permission to flash. Do not erase or flash without explicit approval.
-
-After approval, discover the macOS port and flash the merged image:
+Discovering a USB port is read-only and is not permission to flash. After explicit approval, flash the exact validated merged image without adding `erase_flash`:
 
 ```sh
-ls /dev/cu.usbmodem* /dev/cu.usbserial* 2>/dev/null
 python -m esptool --chip esp32c3 --port /dev/cu.usbmodemXXXX \
   --baud 460800 write_flash 0x0 build/FoloToy-AI-Passport-full.bin
 ```
 
-Do not add `erase_flash` without separate authorization for data loss.
-
 ## Validation record
 
-- Build: **PASS** — ESP-IDF 5.5.3 compiled and verified the merged image on 2026-09-20.
-- Host tests: **PASS** — repository checks, existing suites, model/codec tests, partition checks, and 138-character Chinese font coverage passed.
-- Device tests: **NOT RUN** — the cloud environment cannot access the user's Mac USB device.
-- Unverified: physical boot/display; Chinese rendering/layout; button clicks and long presses; microphone quality; 60-second stop, early stop, and cancellation; playback; restart persistence; all growth transitions; fruit/delete flows; battery display; low-space behavior; repeated-recording stability.
+- Build: **PASS** — ESP-IDF 5.5.3 built and verified the merged image after the current copy/font update.
+- Host tests: **PASS** — repository static checks, model/codec/protocol suites, nine application-contract checks, and 182-character/punctuation font coverage passed.
+- Device tests: **NOT RUN as complete acceptance** — a merged image was flashed at `0x0`, esptool verified the written data, the device returned over USB, and USB screenshots/simulated flows were captured. These observations do not prove every physical path.
+- Unverified: current physical-button behavior under rapid repeated input; final microphone quality; final perceived speaker loudness; restart persistence across all stages; storage-limit behavior; long-duration repeated-recording stability.
 
-## Physical acceptance
+## Physical acceptance still required
 
-1. Flash this exact image and capture startup logs.
-2. Check for missing glyphs, clipping, overlap, and display corruption.
-3. Exercise every category and all navigation/return paths.
-4. Test short, manually stopped, cancelled, and full 60-second recordings.
-5. Play the original recording and stop it early.
-6. Add five updates and confirm Seed → Sprout → Sapling → Tree.
-7. Resolve and confirm fruit persists after restart.
-8. Delete and confirm metadata/audio stay removed after restart.
-9. Approach the storage limit and confirm a clean error without corruption.
-10. Check logs for watchdog resets, allocation, I2S, SPIFFS, or button errors.
+1. Exercise every category and every click/long-press return path with the physical buttons.
+2. Test rapid repeated `UP`/`DOWN` presses and opening each planted seed.
+3. Record quiet and normal speech, then compare original and latest-progress playback volume.
+4. Confirm the button, planting, voice, and fruit sounds on the actual speaker.
+5. Add five progress entries and verify every visual growth stage.
+6. Resolve, restart, and confirm the fruit persists.
+7. Delete a seed, restart, and confirm metadata and referenced audio remain removed.
+8. Approach the storage limit and confirm a clean error without corrupting existing recordings.
 
 ## Known boundaries
 
-- The app is offline: no transcription, automatic classification, sync, or upload.
-- Progress recordings drive growth and are stored, but only the original recording currently has a playback action.
+- The app is fully offline: no transcription, automatic classification, sync, upload, or AI judgement.
 - There is no recording export or backup path.
-- Recording requires free space for a full 60-second file, a conservative and predictable policy.
-- The tree uses lightweight LVGL geometry; refine visuals only after physical review.
-- Hardware acceptance is next. Delay feature expansion until capture, playback, persistence, fonts, and button timing pass.
+- Recording requires space for a full 60-second file before it starts.
+- USB screenshots represent LVGL output, not proof that every LCD SPI transfer reached the panel.
+- Simulated USB controls do not validate the ADC resistor ladder, physical switches, or hardware debounce.
+- Additional theme files consume Flash but are not selectable in the current experience.

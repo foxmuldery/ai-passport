@@ -1,0 +1,640 @@
+{
+  "format": "worry-seed-theme-layers-v1",
+  "themes": {
+    "pixel": {
+      "source": "assets/themes/source/01_五种风格独立图/01_治愈像素风.png",
+      "stage": {
+        "stage_0": {
+          "png": "assets/themes/derived/pixel/stage_0.png",
+          "firmware": "assets/themes/firmware/pixel_stage_0.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "610adfb6ff268b4b31edd50670f5844948b08d4956a70b8ffa4138613fe14955"
+        },
+        "stage_1": {
+          "png": "assets/themes/derived/pixel/stage_1.png",
+          "firmware": "assets/themes/firmware/pixel_stage_1.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "f3fb479258e9d24644b3c994d9eebe7c2d564730cb33cec1a432b0f415897f53"
+        },
+        "stage_2": {
+          "png": "assets/themes/derived/pixel/stage_2.png",
+          "firmware": "assets/themes/firmware/pixel_stage_2.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "511709646818fb3858ff0e2276e2597334aa3d472acb688ffec523d7da61fd29"
+        },
+        "stage_3": {
+          "png": "assets/themes/derived/pixel/stage_3.png",
+          "firmware": "assets/themes/firmware/pixel_stage_3.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "708f381c890ea61cd2d03a25cc73dcce5a6e8a8156fbf02b730cfa5cfb1cfaa1"
+        },
+        "stage_4": {
+          "png": "assets/themes/derived/pixel/stage_4.png",
+          "firmware": "assets/themes/firmware/pixel_stage_4.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "1b101996b237270eb297b5749f852497897ea1f1a2b7d101f25f0c711cc1b358"
+        }
+      },
+      "icon": {
+        "icon_water": {
+          "png": "assets/themes/derived/pixel/icon_water.png",
+          "firmware": "assets/themes/firmware/pixel_icon_water.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "a0e032ebb6273cacb20ec1a3f4eb05ac8fd19c6993e36a1c9aa6b82ea08f42ee"
+        },
+        "icon_leaf": {
+          "png": "assets/themes/derived/pixel/icon_leaf.png",
+          "firmware": "assets/themes/firmware/pixel_icon_leaf.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "890a40a2af1daac939531e84134c725ef46a6bbd7188f3a4057bf356f14dceb5"
+        },
+        "icon_fruit": {
+          "png": "assets/themes/derived/pixel/icon_fruit.png",
+          "firmware": "assets/themes/firmware/pixel_icon_fruit.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "7154fa2a6e237b602be601432ad8ba1202dfc0117b5af0ca91a84647e4f1d389"
+        },
+        "icon_mic": {
+          "png": "assets/themes/derived/pixel/icon_mic.png",
+          "firmware": "assets/themes/firmware/pixel_icon_mic.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "6f199a141124a50de4983df2a6534463f1e2eda1b7bdcb355c416d991f46d7fd"
+        },
+        "icon_play": {
+          "png": "assets/themes/derived/pixel/icon_play.png",
+          "firmware": "assets/themes/firmware/pixel_icon_play.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "301ed2194aa41161115051cc8d40db1a23b5b53348d2e58532d35ef10f30ab25"
+        },
+        "icon_stop": {
+          "png": "assets/themes/derived/pixel/icon_stop.png",
+          "firmware": "assets/themes/firmware/pixel_icon_stop.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "46fe554f55a55c3a8ce78269aa04bcedfbdadbb1ccd9e686d797d5d7f81b447f"
+        },
+        "icon_back": {
+          "png": "assets/themes/derived/pixel/icon_back.png",
+          "firmware": "assets/themes/firmware/pixel_icon_back.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "f33ea24ac496ff27da7f464ed9358dbcf517669d0571e7c84b4669f684539abf"
+        },
+        "icon_up": {
+          "png": "assets/themes/derived/pixel/icon_up.png",
+          "firmware": "assets/themes/firmware/pixel_icon_up.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "851ebe4a268d25989e0dbda752774efc8c5c512237825235562fdadd51dadd01"
+        },
+        "icon_down": {
+          "png": "assets/themes/derived/pixel/icon_down.png",
+          "firmware": "assets/themes/firmware/pixel_icon_down.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "52f36af57a17581de3b0ad008f01feeab13b28238f0ee223754dd144292908fa"
+        },
+        "icon_confirm": {
+          "png": "assets/themes/derived/pixel/icon_confirm.png",
+          "firmware": "assets/themes/firmware/pixel_icon_confirm.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "9435a2169ac2ade64c63571f53223318e55cf6514cf54f11f87485f2098131cc"
+        }
+      }
+    },
+    "watercolor": {
+      "source": "assets/themes/source/01_五种风格独立图/02_浪漫水彩风_重排导出.png",
+      "stage": {
+        "stage_0": {
+          "png": "assets/themes/derived/watercolor/stage_0.png",
+          "firmware": "assets/themes/firmware/watercolor_stage_0.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "a8d135d15a74112a44797227991a7a86f995eb99ee18a8d18023a2141ec223a2"
+        },
+        "stage_1": {
+          "png": "assets/themes/derived/watercolor/stage_1.png",
+          "firmware": "assets/themes/firmware/watercolor_stage_1.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "21e3714045f90c726bcb53e06c2ac6ecbfd73804ee6e146b2c070159c962a268"
+        },
+        "stage_2": {
+          "png": "assets/themes/derived/watercolor/stage_2.png",
+          "firmware": "assets/themes/firmware/watercolor_stage_2.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "836fcd80aece81b5677cb9956197d56e95ff72461175d6feeae282042f731124"
+        },
+        "stage_3": {
+          "png": "assets/themes/derived/watercolor/stage_3.png",
+          "firmware": "assets/themes/firmware/watercolor_stage_3.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "79a31bcd30b46de60af92d8594c5c17be58609be3c4ac01b51626c397407b1a4"
+        },
+        "stage_4": {
+          "png": "assets/themes/derived/watercolor/stage_4.png",
+          "firmware": "assets/themes/firmware/watercolor_stage_4.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "70f46bf3da7cd10da1c13b3796d9edf1f94820ca010fa2bacb04402baf480de4"
+        }
+      },
+      "icon": {
+        "icon_water": {
+          "png": "assets/themes/derived/watercolor/icon_water.png",
+          "firmware": "assets/themes/firmware/watercolor_icon_water.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "feb48bcb3eb741c5a6f2a0335886cdb972b50c6dad6bfa0d6fa93dd0403e1481"
+        },
+        "icon_leaf": {
+          "png": "assets/themes/derived/watercolor/icon_leaf.png",
+          "firmware": "assets/themes/firmware/watercolor_icon_leaf.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "2bad8ee1c46309d29fb19f291da573419ba7cac4afa3d419efa62032c2fefa74"
+        },
+        "icon_fruit": {
+          "png": "assets/themes/derived/watercolor/icon_fruit.png",
+          "firmware": "assets/themes/firmware/watercolor_icon_fruit.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "e475051ac6b7ab1f6f6f9f08d7d2d697f0561c2dcdcb1376a594f00e1189d5d8"
+        },
+        "icon_mic": {
+          "png": "assets/themes/derived/watercolor/icon_mic.png",
+          "firmware": "assets/themes/firmware/watercolor_icon_mic.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "b521c9a0961626aae15630f0018cf482f3cc8d010d73332a5ec99966a91629be"
+        },
+        "icon_play": {
+          "png": "assets/themes/derived/watercolor/icon_play.png",
+          "firmware": "assets/themes/firmware/watercolor_icon_play.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "ae6610a27f0ae777a56a950b10027f3b70a6ed0a1d4e3498b5c684b171fc4355"
+        },
+        "icon_stop": {
+          "png": "assets/themes/derived/watercolor/icon_stop.png",
+          "firmware": "assets/themes/firmware/watercolor_icon_stop.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "5744936b0c334822eeba1897abb7ffc129882251e28541882b58b012fae1a6ce"
+        },
+        "icon_back": {
+          "png": "assets/themes/derived/watercolor/icon_back.png",
+          "firmware": "assets/themes/firmware/watercolor_icon_back.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "a3628a1bc56da3e74870330a6d8e942a6ab3c68d1b9d14a4785fe4d7d00f9c7b"
+        },
+        "icon_up": {
+          "png": "assets/themes/derived/watercolor/icon_up.png",
+          "firmware": "assets/themes/firmware/watercolor_icon_up.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "6426de05ed89145b465bd1cb17940a22dab625e5589b94c82fac28d106930c37"
+        },
+        "icon_down": {
+          "png": "assets/themes/derived/watercolor/icon_down.png",
+          "firmware": "assets/themes/firmware/watercolor_icon_down.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "8a51ccd6ccbba716aed4397f7ad0327b4cb0e087bb662c7bbabae3fbd2ccce52"
+        },
+        "icon_confirm": {
+          "png": "assets/themes/derived/watercolor/icon_confirm.png",
+          "firmware": "assets/themes/firmware/watercolor_icon_confirm.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "e8e9cd97c0ced6c0dcc06d97d947db1cbc04671c28fee8d1f36ff3aaef3a3aea"
+        }
+      }
+    },
+    "realistic": {
+      "source": "assets/themes/source/01_五种风格独立图/03_微缩写实风_重排导出.png",
+      "stage": {
+        "stage_0": {
+          "png": "assets/themes/derived/realistic/stage_0.png",
+          "firmware": "assets/themes/firmware/realistic_stage_0.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "5c3fc9e4f3240158d3a9eb5acc65c82992825db4bdf6e5de1e912262718100b8"
+        },
+        "stage_1": {
+          "png": "assets/themes/derived/realistic/stage_1.png",
+          "firmware": "assets/themes/firmware/realistic_stage_1.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "fbe938f7b887adf0c4a55b4b3eb8fd1b9901149581a8fe2aeafe8fb7f64d6608"
+        },
+        "stage_2": {
+          "png": "assets/themes/derived/realistic/stage_2.png",
+          "firmware": "assets/themes/firmware/realistic_stage_2.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "136d31e7ccc157b7743ddbc29940c5c93dcfc8b99a56911f69a9acf264cc8eef"
+        },
+        "stage_3": {
+          "png": "assets/themes/derived/realistic/stage_3.png",
+          "firmware": "assets/themes/firmware/realistic_stage_3.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "8ef6198ae4fe53f9782ea61363ca9b2a4014f2481ca20e27e92378abb5d35e16"
+        },
+        "stage_4": {
+          "png": "assets/themes/derived/realistic/stage_4.png",
+          "firmware": "assets/themes/firmware/realistic_stage_4.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "33b5476414bf6a7b26fbe28bf3b5abea5de5cf6fab6542b2e6628789f882f39c"
+        }
+      },
+      "icon": {
+        "icon_water": {
+          "png": "assets/themes/derived/realistic/icon_water.png",
+          "firmware": "assets/themes/firmware/realistic_icon_water.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "b3dcabb70753f8016aacc8f4fc3a4b238138b094a8b491031e770c2dd323e3c6"
+        },
+        "icon_leaf": {
+          "png": "assets/themes/derived/realistic/icon_leaf.png",
+          "firmware": "assets/themes/firmware/realistic_icon_leaf.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "12897fed2c78df77b9b10db3838c441096f063fb510e1dcba0eccb26b3075b18"
+        },
+        "icon_fruit": {
+          "png": "assets/themes/derived/realistic/icon_fruit.png",
+          "firmware": "assets/themes/firmware/realistic_icon_fruit.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "b26c36ff5638565e1c8af01d38a50eeedd600caa00059abf4631687a1e9219a2"
+        },
+        "icon_mic": {
+          "png": "assets/themes/derived/realistic/icon_mic.png",
+          "firmware": "assets/themes/firmware/realistic_icon_mic.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "22e5aa2a14bc78544ed9cd4ff1e827e1b8d6d0e944c2da3274e1e57d7ccb95db"
+        },
+        "icon_play": {
+          "png": "assets/themes/derived/realistic/icon_play.png",
+          "firmware": "assets/themes/firmware/realistic_icon_play.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "dc8485895a1ef6515f15b2a250937d62e0d9c5a6f5250f00f99d5c049fb90119"
+        },
+        "icon_stop": {
+          "png": "assets/themes/derived/realistic/icon_stop.png",
+          "firmware": "assets/themes/firmware/realistic_icon_stop.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "b801839bf5659d38d9ae27aa6f7f4b7f40897a73718e2f6188fb5e6531dde0cd"
+        },
+        "icon_back": {
+          "png": "assets/themes/derived/realistic/icon_back.png",
+          "firmware": "assets/themes/firmware/realistic_icon_back.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "cecf31610dc385e68cf7dc30caf4d5a9ea389a4a3a20c794ee0d3d38cc43efd0"
+        },
+        "icon_up": {
+          "png": "assets/themes/derived/realistic/icon_up.png",
+          "firmware": "assets/themes/firmware/realistic_icon_up.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "969744e38b512c601a3615a28a40cd1437f087b34c78490e53c07c164e6dc4b9"
+        },
+        "icon_down": {
+          "png": "assets/themes/derived/realistic/icon_down.png",
+          "firmware": "assets/themes/firmware/realistic_icon_down.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "1e10160633a758a7a708504600d2b4e9f6d8a994f67f0f406af6ffc57d702d85"
+        },
+        "icon_confirm": {
+          "png": "assets/themes/derived/realistic/icon_confirm.png",
+          "firmware": "assets/themes/firmware/realistic_icon_confirm.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "17fa6e5baa5a54dac76f167f8321132859a81e70ea73006694bf65720f082577"
+        }
+      }
+    },
+    "ink": {
+      "source": "assets/themes/source/01_五种风格独立图/04_东方水墨风_重排导出.png",
+      "stage": {
+        "stage_0": {
+          "png": "assets/themes/derived/ink/stage_0.png",
+          "firmware": "assets/themes/firmware/ink_stage_0.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "0c5c7962bbb23e4a1976efb5d7344cfe2a64b4704cd34dace2945982289028f3"
+        },
+        "stage_1": {
+          "png": "assets/themes/derived/ink/stage_1.png",
+          "firmware": "assets/themes/firmware/ink_stage_1.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "63f1605c3480f7c62bc9708448d2739f7caec4fafb020cc8ef73b67ef3cec522"
+        },
+        "stage_2": {
+          "png": "assets/themes/derived/ink/stage_2.png",
+          "firmware": "assets/themes/firmware/ink_stage_2.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "63b6343470bf7dcc2007bd2ac3e9d77528c8087208d86873dd658c371e5e15e6"
+        },
+        "stage_3": {
+          "png": "assets/themes/derived/ink/stage_3.png",
+          "firmware": "assets/themes/firmware/ink_stage_3.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "72a20c69054cbad139d7c05ccf08dce913c053826a944ee3413599cbf9d302e7"
+        },
+        "stage_4": {
+          "png": "assets/themes/derived/ink/stage_4.png",
+          "firmware": "assets/themes/firmware/ink_stage_4.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "47034d2534932095ee0f8a6657c13ac7667bc0bfb7fdfa7aeaa961026d954474"
+        }
+      },
+      "icon": {
+        "icon_water": {
+          "png": "assets/themes/derived/ink/icon_water.png",
+          "firmware": "assets/themes/firmware/ink_icon_water.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "4d850a9cb517909f34d098c574a000ec36fae9c9b9350bad8bfd363ae30dbd21"
+        },
+        "icon_leaf": {
+          "png": "assets/themes/derived/ink/icon_leaf.png",
+          "firmware": "assets/themes/firmware/ink_icon_leaf.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "866bfa8f5bfff8e82a880017d4e5b57af4e5fac8c17c764910d5e17c9da26300"
+        },
+        "icon_fruit": {
+          "png": "assets/themes/derived/ink/icon_fruit.png",
+          "firmware": "assets/themes/firmware/ink_icon_fruit.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "78baa0a5826c7edd4898b776947cf7cf436a5608d46c24a5cc8855fedb462587"
+        },
+        "icon_mic": {
+          "png": "assets/themes/derived/ink/icon_mic.png",
+          "firmware": "assets/themes/firmware/ink_icon_mic.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "200039835fda3ffce42533621a758dfb7402117239bac6dd98809a8eecebff09"
+        },
+        "icon_play": {
+          "png": "assets/themes/derived/ink/icon_play.png",
+          "firmware": "assets/themes/firmware/ink_icon_play.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "1b97c32c80b0039512977798794c5d2b650a0c6a98797b612f45e5fab04d48cb"
+        },
+        "icon_stop": {
+          "png": "assets/themes/derived/ink/icon_stop.png",
+          "firmware": "assets/themes/firmware/ink_icon_stop.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "a3d7bde03ab4265aff153e8a8836fd94d99f35806e1b6f599756d3eda973c519"
+        },
+        "icon_back": {
+          "png": "assets/themes/derived/ink/icon_back.png",
+          "firmware": "assets/themes/firmware/ink_icon_back.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "53be3399aff093aa442e26867c1e7b813207afe978df307cf8e33989b69a73ca"
+        },
+        "icon_up": {
+          "png": "assets/themes/derived/ink/icon_up.png",
+          "firmware": "assets/themes/firmware/ink_icon_up.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "99676639dbdbdea296da85dec2716ea77d93ffb3a56850fcf0eda75ddfc38cc4"
+        },
+        "icon_down": {
+          "png": "assets/themes/derived/ink/icon_down.png",
+          "firmware": "assets/themes/firmware/ink_icon_down.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "7b269a503ea8f9cc0cf640caf4c78670c7c1f12f1c636e5598a421f38da49ebc"
+        },
+        "icon_confirm": {
+          "png": "assets/themes/derived/ink/icon_confirm.png",
+          "firmware": "assets/themes/firmware/ink_icon_confirm.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "5a86e4e732578549e735097d709b969a210f932fa3ec5776fbb1cf2b5d0e9900"
+        }
+      }
+    },
+    "starlight": {
+      "source": "assets/themes/source/01_五种风格独立图/05_星空梦境风_重排导出.png",
+      "stage": {
+        "stage_0": {
+          "png": "assets/themes/derived/starlight/stage_0.png",
+          "firmware": "assets/themes/firmware/starlight_stage_0.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "00b0b81c72bc1a761995aff79956af849cd7149682a41266ab468307a6f05051"
+        },
+        "stage_1": {
+          "png": "assets/themes/derived/starlight/stage_1.png",
+          "firmware": "assets/themes/firmware/starlight_stage_1.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "f511cf7804310e55fd827bbee26cc4e4a8b8970638d5337428a414ccfed1f770"
+        },
+        "stage_2": {
+          "png": "assets/themes/derived/starlight/stage_2.png",
+          "firmware": "assets/themes/firmware/starlight_stage_2.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "f15d4f56a8e73685dd2619b421623e9899a8f5b9c270f3e6e3c54d9659203bb9"
+        },
+        "stage_3": {
+          "png": "assets/themes/derived/starlight/stage_3.png",
+          "firmware": "assets/themes/firmware/starlight_stage_3.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "6d878bfeb680ee785f67afa5d6bce4d44068b602d4be8ebcf95b10c2c5775052"
+        },
+        "stage_4": {
+          "png": "assets/themes/derived/starlight/stage_4.png",
+          "firmware": "assets/themes/firmware/starlight_stage_4.rgb565a8",
+          "width": 128,
+          "height": 108,
+          "bytes": 41472,
+          "sha256": "661f19209eaf8339cf758aaba4e375005b301386a1a27bcd45e620831bbfa763"
+        }
+      },
+      "icon": {
+        "icon_water": {
+          "png": "assets/themes/derived/starlight/icon_water.png",
+          "firmware": "assets/themes/firmware/starlight_icon_water.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "111b255fe571086fb34b8f1da5570c9f3993ac2285af3dfc9566feca7996849a"
+        },
+        "icon_leaf": {
+          "png": "assets/themes/derived/starlight/icon_leaf.png",
+          "firmware": "assets/themes/firmware/starlight_icon_leaf.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "5526d007a3271095ca63037899b223b18b6be9ab1c280f0ce1e8597f25984b5f"
+        },
+        "icon_fruit": {
+          "png": "assets/themes/derived/starlight/icon_fruit.png",
+          "firmware": "assets/themes/firmware/starlight_icon_fruit.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "fd9f40074764d8969d8db51480dd12ffc41c9e8d3c0de2ee5af97c329378047f"
+        },
+        "icon_mic": {
+          "png": "assets/themes/derived/starlight/icon_mic.png",
+          "firmware": "assets/themes/firmware/starlight_icon_mic.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "d856e1d0de040eb38abdf5e4791aca114555707353e580a21b750fb90e971af6"
+        },
+        "icon_play": {
+          "png": "assets/themes/derived/starlight/icon_play.png",
+          "firmware": "assets/themes/firmware/starlight_icon_play.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "b69123714e110ba6e27a8c16ac2f08502c26fa4f4a7392aa9773d9d6156f6303"
+        },
+        "icon_stop": {
+          "png": "assets/themes/derived/starlight/icon_stop.png",
+          "firmware": "assets/themes/firmware/starlight_icon_stop.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "1553206169d05ba27ab71313f0b37bfae0ce4eee179e13f50540860fcaaadc49"
+        },
+        "icon_back": {
+          "png": "assets/themes/derived/starlight/icon_back.png",
+          "firmware": "assets/themes/firmware/starlight_icon_back.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "648d37bb3edcd5c45ebc5187686a2e9e6eac657d8b1295e6d95f3f88cd17abab"
+        },
+        "icon_up": {
+          "png": "assets/themes/derived/starlight/icon_up.png",
+          "firmware": "assets/themes/firmware/starlight_icon_up.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "bb91af43fb5f7654303e66e9df94e3903e9cfe9a18fbe271e843e4ea21c35e69"
+        },
+        "icon_down": {
+          "png": "assets/themes/derived/starlight/icon_down.png",
+          "firmware": "assets/themes/firmware/starlight_icon_down.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "5b2c360cc5cf7de2d9842769047d6e6e48e068d10f0d2a56e2602f0ae46e5a94"
+        },
+        "icon_confirm": {
+          "png": "assets/themes/derived/starlight/icon_confirm.png",
+          "firmware": "assets/themes/firmware/starlight_icon_confirm.rgb565a8",
+          "width": 40,
+          "height": 40,
+          "bytes": 4800,
+          "sha256": "8966cd786ee7fbb5360dd4f6ec16118cdeb29bb2eec557af03a587e26f728117"
+        }
+      }
+    }
+  }
+}

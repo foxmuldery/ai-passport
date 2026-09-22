@@ -1,0 +1,97 @@
+[
+  {
+    "id": "pixel",
+    "label": "治愈像素风",
+    "source": "assets/themes/source/01_五种风格独立图/01_治愈像素风.png",
+    "crop_xywh": [
+      1216,
+      320,
+      198,
+      420
+    ],
+    "derived_png": "assets/themes/derived/pixel/hero_240x320.png",
+    "firmware_asset": "assets/themes/firmware/pixel.rgb565",
+    "width": 240,
+    "height": 320,
+    "bytes": 153600,
+    "sha256": "de59446b9ab62f78c7f3912dc41a57d88960f4c2edf1e60b7f8b6f4f3b77c689",
+    "fallback_background": "#1D2A27",
+    "baked_opacity": 0.3
+  },
+  {
+    "id": "watercolor",
+    "label": "浪漫水彩风",
+    "source": "assets/themes/source/01_五种风格独立图/02_浪漫水彩风_重排导出.png",
+    "crop_xywh": [
+      868,
+      725,
+      187,
+      325
+    ],
+    "derived_png": "assets/themes/derived/watercolor/hero_240x320.png",
+    "firmware_asset": "assets/themes/firmware/watercolor.rgb565",
+    "width": 240,
+    "height": 320,
+    "bytes": 153600,
+    "sha256": "c00a2cf37448b300e1f59cfd9056d6589a9cae26568b9903162b33d0e6f2ab27",
+    "fallback_background": "#FFF8E8",
+    "baked_opacity": 0.2
+  },
+  {
+    "id": "realistic",
+    "label": "微缩写实风",
+    "source": "assets/themes/source/01_五种风格独立图/03_微缩写实风_重排导出.png",
+    "crop_xywh": [
+      660,
+      720,
+      270,
+      325
+    ],
+    "derived_png": "assets/themes/derived/realistic/hero_240x320.png",
+    "firmware_asset": "assets/themes/firmware/realistic.rgb565",
+    "width": 240,
+    "height": 320,
+    "bytes": 153600,
+    "sha256": "a1321c72545279a72fcfa3d6f0a62f0049f5e16590bf201e12b1f0c1363add4f",
+    "fallback_background": "#2C2418",
+    "baked_opacity": 0.3
+  },
+  {
+    "id": "ink",
+    "label": "东方水墨风",
+    "source": "assets/themes/source/01_五种风格独立图/04_东方水墨风_重排导出.png",
+    "crop_xywh": [
+      870,
+      720,
+      185,
+      330
+    ],
+    "derived_png": "assets/themes/derived/ink/hero_240x320.png",
+    "firmware_asset": "assets/themes/firmware/ink.rgb565",
+    "width": 240,
+    "height": 320,
+    "bytes": 153600,
+    "sha256": "233a35f49e641ae7971a4156cf88127abaf9ee01d714bf64af841356e6256186",
+    "fallback_background": "#F3EBD4",
+    "baked_opacity": 0.2
+  },
+  {
+    "id": "starlight",
+    "label": "星空梦境风",
+    "source": "assets/themes/source/01_五种风格独立图/05_星空梦境风_重排导出.png",
+    "crop_xywh": [
+      665,
+      725,
+      285,
+      285
+    ],
+    "derived_png": "assets/themes/derived/starlight/hero_240x320.png",
+    "firmware_asset": "assets/themes/firmware/starlight.rgb565",
+    "width": 240,
+    "height": 320,
+    "bytes": 153600,
+    "sha256": "8ddad1d0f9c6b58f792856e3606dd406e82ff5ad9c35cada7406b7270fd4d049",
+    "fallback_background": "#07143A",
+    "baked_opacity": 0.4
+  }
+]

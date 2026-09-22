@@ -8,6 +8,6 @@ Source Han Sans is distributed under the SIL Open Font License 1.1. The full 15.
 
 ```sh
 symbols="$(cat assets/fonts/worry-seed-symbols.txt)"
-npx --yes lv_font_conv --font SourceHanSansSC-Medium.otf --range 0x20-0x7E --symbols "$symbols·…" --size 16 --bpp 2 --format lvgl --no-compress --no-kerning --lv-font-name worry_font_16 --lv-include lvgl.h --output main/worry_font_16.c
-npx --yes lv_font_conv --font SourceHanSansSC-Medium.otf --range 0x20-0x7E --symbols "$symbols·…" --size 24 --bpp 2 --format lvgl --no-compress --no-kerning --lv-font-name worry_font_24 --lv-include lvgl.h --output main/worry_font_24.c
+npx --yes lv_font_conv --font SourceHanSansSC-Medium.otf --range 0x20-0x7E --symbols "$symbols" --size 16 --bpp 2 --format lvgl --no-compress --no-kerning --lv-font-name worry_font_16 --lv-include lvgl.h --output main/worry_font_16.c
+npx --yes lv_font_conv --font SourceHanSansSC-Medium.otf --range 0x20-0x7E --symbols "$symbols" --size 24 --bpp 2 --format lvgl --no-compress --no-kerning --lv-font-name worry_font_24 --lv-include lvgl.h --output main/worry_font_24.c
 ```

@@ -40,6 +40,10 @@ run_static_checks() {
         tests/test_worry_seed_adpcm.c main/worry_seed_adpcm.c \
         -o "${test_dir}/test_worry_seed_adpcm"
     "${test_dir}/test_worry_seed_adpcm"
+    "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Imain \
+        tests/test_worry_seed_debug_protocol.c main/worry_seed_debug_protocol.c \
+        -o "${test_dir}/test_worry_seed_debug_protocol"
+    "${test_dir}/test_worry_seed_debug_protocol"
     "${CC:-cc}" -std=c11 -Wall -Wextra -Werror -Icomponents/bsp/src \
         tests/test_bsp_display_rounding.c components/bsp/src/bsp_display_rounding.c \
         -o "${test_dir}/test_bsp_display_rounding"
@@ -52,6 +56,8 @@ run_static_checks() {
     PYTHONDONTWRITEBYTECODE=1 python3 tests/test_check_repo.py
     PYTHONDONTWRITEBYTECODE=1 python3 tests/test_verify_firmware.py
     PYTHONDONTWRITEBYTECODE=1 python3 tests/test_worry_seed_font_coverage.py
+    PYTHONDONTWRITEBYTECODE=1 python3 tests/test_screenshot_protocol.py
+    PYTHONDONTWRITEBYTECODE=1 python3 tests/test_worry_seed_theme_layers.py
     rm -rf "${test_dir}"
     echo "Host tests: PASS"
 }

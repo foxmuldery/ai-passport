@@ -121,6 +121,7 @@ LICENSE                  仓库许可证
 - [`docs/reference/`](reference/README.zh_CN.md) — 参考资料：按贡献者（`reference/<username>/`）组织可复用开发经验与已归档应用于册。
 - [`docs/brand/`](brand/README.zh_CN.md) — 公开品牌与产品语言（`brand-and-product.zh_CN.md`）与官方产品视觉参考。
 - [`docs/`](README.zh_CN.md) 顶层 — [`CHANGELOG.zh_CN.md`](CHANGELOG.zh_CN.md)、[`brand-and-product.zh_CN.md`](brand/brand-and-product.zh_CN.md)、[`fork-guide.zh_CN.md`](fork-guide.zh_CN.md)。
+- [`worry-seed-website-product-brief.zh_CN.md`](brand/worry-seed-website-product-brief.zh_CN.md) — 烦恼种子官网、产品文案与现有美术素材确认文档；[English](brand/worry-seed-website-product-brief.md)。
 
 GitHub 社区治理文档：[CONTRIBUTING.zh_CN.md](../.github/CONTRIBUTING.zh_CN.md)、[CODE_OF_CONDUCT.zh_CN.md](../.github/CODE_OF_CONDUCT.zh_CN.md)、[SECURITY.zh_CN.md](../.github/SECURITY.zh_CN.md)、[SUPPORT.zh_CN.md](../.github/SUPPORT.zh_CN.md)。
 
