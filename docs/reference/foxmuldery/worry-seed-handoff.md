@@ -61,6 +61,10 @@ The garden holds up to 12 seeds. Each seed has one original recording and up to 
 - Microphone input gain is configured to 42 dB and recording playback uses full output volume.
 - The Chinese subset contains the application strings and punctuation checked by the font-coverage test.
 - A local USB protocol captures the LVGL framebuffer and injects simulated button events through the normal application queue.
+- After 30 seconds without activity the backlight dims to 18%; after 60 seconds it turns off. The first function-key press on a black screen only wakes the display and does not execute the original action.
+- After five idle minutes, with no recording, playback, or tone active, the app enters deep sleep. The shared GPIO0 node for Up, Down, and OK wakes and restarts the application.
+- The last valid battery percentage is retained before deep sleep and displayed while the CW2017 recomputes after wake, preventing a transient `0%`. Audio shutdown also avoids disabling I2S channels that are already stopped.
+- The dedicated power key is controlled by the hardware power circuit and is not connected to an MCU/BSP input. Its roughly two-second hold remains a hardware shutdown; the app cannot reinterpret a short press as screen-off.
 
 Only the pixel theme is active. Watercolor, miniature-realistic, ink, and starlight files exist as future material, but the theme setter rejects them so old NVS state cannot switch the application unexpectedly.
 
@@ -130,6 +134,7 @@ python -m esptool --chip esp32c3 --port /dev/cu.usbmodemXXXX \
 6. Resolve, restart, and confirm the fruit persists.
 7. Delete a seed, restart, and confirm metadata and referenced audio remain removed.
 8. Approach the storage limit and confirm a clean error without corrupting existing recordings.
+9. Wait 30 seconds, 60 seconds, and five minutes to verify dim, screen-off, and deep sleep. Confirm that the first key only wakes the black screen and that all three function keys wake from deep sleep.
 
 ## Known boundaries
 

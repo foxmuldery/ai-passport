@@ -91,10 +91,13 @@ class DeepSleepContractTest(unittest.TestCase):
         body = function_body(self.audio, "bsp_audio_sleep")
         self.assertIn("es8311_force_sleep()", body)
         self.assertIn("audio_disable_i2s_channels()", body)
+        self.assertIn("bool was_opened = s_opened", body)
+        self.assertRegex(body, r"if\s*\(!was_opened\)\s*\{[^}]*audio_disable_i2s_channels\(\)")
         self.assertNotIn("bsp_audio_set_format", body)
 
     def test_i2s_pins_are_released_only_by_deep_sleep_api(self) -> None:
         body = function_body(self.audio, "bsp_audio_prepare_deep_sleep")
+        self.assertRegex(body, r"if\s*\(!s_sleeping\)\s*\{[^}]*audio_disable_i2s_channels\(\)")
         for pin in ("BSP_I2S_MCLK", "BSP_I2S_BCLK", "BSP_I2S_WS",
                     "BSP_I2S_DOUT", "BSP_I2S_DIN"):
             self.assertIn(pin, body)

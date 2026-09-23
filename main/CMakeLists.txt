@@ -6,6 +6,7 @@ idf_component_register(
          "worry_seed_audio.c"
          "worry_seed_adpcm.c"
          "worry_seed_debug_protocol.c"
+         "worry_seed_power_policy.c"
          "worry_seed_screenshot.c"
          "worry_seed_theme.c"
          "worry_seed_theme_assets.c"

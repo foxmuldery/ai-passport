@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = (ROOT / "main" / "worry_seed_app.c").read_text(encoding="utf-8")
 AUDIO_SOURCE = (ROOT / "main" / "worry_seed_audio.c").read_text(encoding="utf-8")
 AUDIO_HEADER = (ROOT / "main" / "worry_seed_audio.h").read_text(encoding="utf-8")
+POWER_HEADER = (ROOT / "main" / "worry_seed_power_policy.h").read_text(encoding="utf-8")
 BSP_AUDIO_SOURCE = (ROOT / "components" / "bsp" / "src" / "bsp_audio.c").read_text(encoding="utf-8")
 
 
@@ -68,6 +69,39 @@ class WorrySeedAppContractTests(unittest.TestCase):
         self.assertNotIn("正在播放最近的进展，确定可停止", SOURCE)
         self.assertIn("正在播放进展，确定停止", SOURCE)
         self.assertLessEqual(len("正在播放进展，确定停止"), 12)
+
+    def test_idle_power_stages_match_the_product_contract(self):
+        self.assertIn("WORRY_POWER_DIM_AFTER_MS       30000ULL", POWER_HEADER)
+        self.assertIn("WORRY_POWER_SCREEN_OFF_AFTER_MS 60000ULL", POWER_HEADER)
+        self.assertIn("WORRY_POWER_DEEP_SLEEP_AFTER_MS 300000ULL", POWER_HEADER)
+        self.assertIn("worry_seed_audio_busy()", SOURCE)
+
+    def test_black_screen_wake_is_consumed_before_button_audio_or_action(self):
+        task = function_body("static void app_task", "esp_err_t worry_seed_app_start")
+        wake = task.index("consume_wake_button")
+        beep = task.index("worry_seed_audio_beep", wake)
+        action = task.index("handle_button", wake)
+        self.assertLess(wake, beep)
+        self.assertLess(wake, action)
+
+    def test_deep_sleep_uses_the_shared_adc_button_gpio_as_a_mask(self):
+        body = function_body("static void enter_deep_sleep", "static void update_power_state")
+        self.assertIn("1ULL << BSP_BTN_GPIO", body)
+        self.assertIn("ESP_GPIO_WAKEUP_GPIO_LOW", body)
+        self.assertIn("bsp_battery_sleep()", body)
+        self.assertIn("bsp_audio_prepare_deep_sleep()", body)
+        self.assertIn("bsp_i2c_prepare_deep_sleep()", body)
+        self.assertIn("bsp_display_prepare_deep_sleep()", body)
+
+    def test_deep_sleep_retains_last_valid_battery_soc(self):
+        self.assertIn("RTC_DATA_ATTR static int s_retained_battery_soc", SOURCE)
+        sleep_body = function_body("static void enter_deep_sleep", "static void update_power_state")
+        self.assertIn("bsp_battery_soc()", sleep_body)
+        self.assertIn("s_retained_battery_soc", sleep_body)
+        screen_body = function_body("static lv_obj_t *screen_base", "static void footer")
+        self.assertRegex(screen_body, r"soc == 0\s*&&\s*s_retained_battery_soc > 0")
+        start_body = SOURCE[SOURCE.index("esp_err_t worry_seed_app_start"):]
+        self.assertIn("esp_sleep_get_wakeup_cause()", start_body)
 
 
 if __name__ == "__main__":

@@ -5,10 +5,17 @@
 #include <string.h>
 
 #include "bsp_battery.h"
+#include "bsp_audio.h"
 #include "bsp_button.h"
 #include "bsp_display.h"
+#include "bsp_i2c.h"
+#include "bsp_pins.h"
+#include "driver/gpio.h"
+#include "esp_attr.h"
 #include "esp_heap_caps.h"
 #include "esp_log.h"
+#include "esp_sleep.h"
+#include "esp_system.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
@@ -16,6 +23,7 @@
 #include "lvgl.h"
 #include "worry_seed_audio.h"
 #include "worry_seed_model.h"
+#include "worry_seed_power_policy.h"
 #include "worry_seed_store.h"
 #include "worry_seed_theme.h"
 
@@ -70,6 +78,111 @@ static lv_obj_t *s_screen;
 static lv_obj_t *s_category_screen;
 static lv_obj_t *s_category_rows[WORRY_CATEGORY_COUNT];
 static lv_obj_t *s_category_markers[WORRY_CATEGORY_COUNT];
+static worry_power_policy_t s_power;
+static bool s_wake_key_pending;
+static bsp_btn_t s_wake_key;
+RTC_DATA_ATTR static int s_retained_battery_soc = -1;
+
+static uint64_t now_ms(void) {
+    return (uint64_t)(esp_timer_get_time() / 1000);
+}
+
+static void log_sleep_step(const char *step, esp_err_t error) {
+    if (error != ESP_OK) {
+        ESP_LOGW(TAG, "deep sleep continues after %s failed: %s", step,
+                 esp_err_to_name(error));
+    }
+}
+
+static void enter_deep_sleep(void) {
+    if (!bsp_lvgl_lock(1000)) {
+        ESP_LOGE(TAG, "cannot stop LVGL before automatic deep sleep");
+        worry_power_policy_note_activity(&s_power, now_ms());
+        bsp_display_backlight(WORRY_POWER_ACTIVE_BRIGHTNESS);
+        return;
+    }
+
+    const gpio_config_t wake_input = {
+        .pin_bit_mask = 1ULL << BSP_BTN_GPIO,
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE,
+    };
+    esp_err_t error = gpio_config(&wake_input);
+    if (error == ESP_OK) {
+        error = esp_deep_sleep_enable_gpio_wakeup(
+            1ULL << BSP_BTN_GPIO, ESP_GPIO_WAKEUP_GPIO_LOW);
+    }
+    if (error != ESP_OK) {
+        ESP_LOGE(TAG, "button wake configuration failed: %s",
+                 esp_err_to_name(error));
+        bsp_lvgl_unlock();
+        worry_power_policy_note_activity(&s_power, now_ms());
+        bsp_display_backlight(WORRY_POWER_ACTIVE_BRIGHTNESS);
+        return;
+    }
+
+    ESP_LOGI(TAG, "idle for 5 minutes; entering deep sleep until a function key");
+    // CW2017 and ES8311 share I2C, so all register writes and readbacks must
+    // finish before the bus pins are released. No audio I/O is active here.
+    int soc = bsp_battery_soc();
+    if (soc > 0 && soc <= 100) s_retained_battery_soc = soc;
+    log_sleep_step("CW2017 suspend", bsp_battery_sleep());
+    log_sleep_step("ES8311 suspend", bsp_audio_sleep());
+    log_sleep_step("I2S pin release", bsp_audio_prepare_deep_sleep());
+    log_sleep_step("shared I2C pin release", bsp_i2c_prepare_deep_sleep());
+    log_sleep_step("ST7789 suspend", bsp_display_prepare_deep_sleep());
+
+    esp_deep_sleep_start();
+    ESP_LOGE(TAG, "esp_deep_sleep_start returned unexpectedly; restarting");
+    esp_restart();
+}
+
+static void update_power_state(void) {
+    worry_power_state_t previous = s_power.state;
+    worry_power_state_t next = worry_power_policy_update(
+        &s_power, now_ms(), worry_seed_audio_busy());
+    if (next == previous) return;
+
+    switch (next) {
+        case WORRY_POWER_ACTIVE:
+            bsp_display_backlight(WORRY_POWER_ACTIVE_BRIGHTNESS);
+            break;
+        case WORRY_POWER_DIMMED:
+            ESP_LOGI(TAG, "idle for 30 seconds; dimming display");
+            bsp_display_backlight(WORRY_POWER_DIM_BRIGHTNESS);
+            break;
+        case WORRY_POWER_SCREEN_OFF:
+            ESP_LOGI(TAG, "idle for 60 seconds; turning backlight off");
+            bsp_display_backlight(0);
+            break;
+        case WORRY_POWER_DEEP_SLEEP:
+            enter_deep_sleep();
+            break;
+    }
+}
+
+static bool consume_wake_button(bsp_btn_t button, bsp_btn_ev_t action) {
+    if (s_wake_key_pending) {
+        if (button == s_wake_key && action != BSP_BTN_PRESS) {
+            s_wake_key_pending = false;
+        }
+        return true;
+    }
+
+    worry_power_state_t previous = s_power.state;
+    bool consume = worry_power_policy_wake_for_button(&s_power, now_ms());
+    if (previous != WORRY_POWER_ACTIVE) {
+        bsp_display_backlight(WORRY_POWER_ACTIVE_BRIGHTNESS);
+        ESP_LOGI(TAG, "display woke from idle state %d", previous);
+    }
+    if (consume && action == BSP_BTN_PRESS) {
+        s_wake_key_pending = true;
+        s_wake_key = button;
+    }
+    return consume;
+}
 
 // Load the new screen before releasing the old one. Keeping detached screens
 // alive exhausts LVGL's small internal pool after only a few button presses,
@@ -173,6 +286,10 @@ static lv_obj_t *screen_base(const char *title) {
     char battery[12] = "电量 --";
     if (s.battery_ready) {
         int soc = bsp_battery_soc();
+        // CW2017 temporarily reports 0 while recomputing SOC after wake. Keep
+        // the last valid pre-sleep percentage until a new reading arrives.
+        if (soc == 0 && s_retained_battery_soc > 0) soc = s_retained_battery_soc;
+        else if (soc > 0 && soc <= 100) s_retained_battery_soc = soc;
         if (soc >= 0) snprintf(battery, sizeof(battery), "%d%%", soc);
     }
     label(screen, battery, &worry_font_16, theme->primary, LV_ALIGN_TOP_RIGHT, -14, 14);
@@ -544,26 +661,44 @@ static void app_task(void *arg) {
     }
     render();
     app_event_t event;
-    for (;;) if (xQueueReceive(s_queue, &event, portMAX_DELAY) == pdTRUE) {
+    for (;;) {
+        if (xQueueReceive(s_queue, &event, pdMS_TO_TICKS(250)) != pdTRUE) {
+            update_power_state();
+            continue;
+        }
         if (event.type == EVENT_BUTTON) {
             ESP_LOGI(TAG, "button event: key=%d action=%d",
                      event.data.key.button, event.data.key.action);
+            if (consume_wake_button(event.data.key.button, event.data.key.action)) continue;
             if (event.data.key.action == BSP_BTN_PRESS) (void)worry_seed_audio_beep();
             handle_button(event.data.key.button, event.data.key.action);
         }
         else if (event.type == EVENT_REMOTE_BUTTON) {
             ESP_LOGI(TAG, "USB button event: key=%d action=%d",
                      event.data.key.button, event.data.key.action);
+            if (consume_wake_button(event.data.key.button, event.data.key.action)) continue;
             (void)worry_seed_audio_beep();
             handle_button(event.data.key.button, BSP_BTN_PRESS);
             handle_button(event.data.key.button, event.data.key.action);
         }
-        else handle_audio(&event);
+        else {
+            worry_power_state_t previous = s_power.state;
+            worry_power_policy_note_activity(&s_power, now_ms());
+            if (previous != WORRY_POWER_ACTIVE) {
+                bsp_display_backlight(WORRY_POWER_ACTIVE_BRIGHTNESS);
+            }
+            handle_audio(&event);
+        }
     }
 }
 
 esp_err_t worry_seed_app_start(void) {
+    if (esp_sleep_get_wakeup_cause() != ESP_SLEEP_WAKEUP_GPIO) {
+        s_retained_battery_soc = -1;
+    }
     memset(&s, 0, sizeof(s));
+    worry_power_policy_init(&s_power, now_ms());
+    s_wake_key_pending = false;
     s_screen = NULL;
     if (!worry_seed_store_init(&s.model)) return ESP_FAIL;
     worry_seed_theme_init();

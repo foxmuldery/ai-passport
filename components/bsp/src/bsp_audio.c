@@ -342,6 +342,7 @@ esp_err_t bsp_audio_sleep(void) {
     if (!s_dev || s_sleeping) return ESP_OK;
 
     esp_err_t first_error = ESP_OK;
+    bool was_opened = s_opened;
     // 已打开路径仍让 codec-dev 更新软件状态；寄存器强制序列在 close
     // 之后再执行，以覆盖依赖库中 REG45=0x00 的较弱 suspend 序列。
     if (s_opened) {
@@ -360,14 +361,23 @@ esp_err_t bsp_audio_sleep(void) {
     esp_err_t e = es8311_force_sleep();
     if (e != ESP_OK && first_error == ESP_OK) first_error = e;
 
-    e = audio_disable_i2s_channels();
-    if (e != ESP_OK && first_error == ESP_OK) first_error = e;
+    // esp_codec_dev_close() already leaves both channels in READY. Calling
+    // disable again makes ESP-IDF log an error even though they are stopped.
+    if (!was_opened) {
+        e = audio_disable_i2s_channels();
+        if (e != ESP_OK && first_error == ESP_OK) first_error = e;
+    }
     s_sleeping = true;
     return first_error;
 }
 
 esp_err_t bsp_audio_prepare_deep_sleep(void) {
-    esp_err_t first_error = audio_disable_i2s_channels();
+    esp_err_t first_error = ESP_OK;
+    // Remain safe as a standalone API, but do not disable a second time after
+    // bsp_audio_sleep() has already stopped the channels.
+    if (!s_sleeping) {
+        first_error = audio_disable_i2s_channels();
+    }
     const int pins[] = {
         BSP_I2S_MCLK, BSP_I2S_BCLK, BSP_I2S_WS, BSP_I2S_DOUT, BSP_I2S_DIN,
     };
