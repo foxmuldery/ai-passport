@@ -15,6 +15,27 @@
 - 添加字库前评估 Flash 与内部 RAM 影响；ESP32-C3 无 PSRAM。
 - 不提交许可不允许分发的字库。
 
+### AI Toolbox 字库
+
+| 文件 | 尺寸 / 格式 | 用途与来源 |
+| --- | --- | --- |
+| [`fonts/toolbox_font_12.c`](fonts/toolbox_font_12.c) | 12 px，4 bpp，LVGL 9 C 数组 | 到期与榜单列表中的紧凑名称。字符集与 14 px 一致。 |
+| [`fonts/toolbox_font_14.c`](fonts/toolbox_font_14.c) | 14 px，4 bpp，LVGL 9 C 数组 | AI Toolbox 应用正文。由 Noto Sans SC Regular（SIL Open Font License 1.1）生成，包含 GB2312 一级字库与应用字符清单。 |
+| [`fonts/toolbox_font_20.c`](fonts/toolbox_font_20.c) | 20 px，4 bpp，LVGL 9 C 数组 | 标题与分区标题；字符集与 14 px 一致。 |
+| [`fonts/toolbox_font_28.c`](fonts/toolbox_font_28.c) | 28 px，4 bpp，LVGL 9 C 数组 | 大号访问量数字；只含数字与分数标点。 |
+| [`fonts/toolbox_chars.txt`](fonts/toolbox_chars.txt) | UTF-8 文本 | 应用必需字符清单，供 `tools/check_toolbox_font.py` 校验。 |
+
+源字体：[Noto Sans SC Regular](https://github.com/notofonts/noto-cjk)，SIL Open Font License 1.1。三个 C 数组通过 `main/CMakeLists.txt` 的 `target_sources` 编译，不在其他源文件中 `#include`。改动字符清单后，用固定版本的转换器重新生成：
+
+```bash
+npx -y lv_font_conv@1.5.2 --font NotoSansCJKsc-Regular.otf \
+  --symbols "$(cat assets/fonts/toolbox_chars.txt)" --size 20 --bpp 4 \
+  --format lvgl --no-compress --no-kerning \
+  --output assets/fonts/toolbox_font_20.c
+```
+
+12 px、14 px 与 20 px 字库覆盖字符清单并额外包含 GB2312 一级字库（3,755 个常用汉字），常见的站点名与订阅名无需重新构建即可显示。该子集不是完整 CJK 字库：清单之外的字符仍可能显示 LVGL 缺字占位符。遇到时把字符加入清单并重新生成三个字号；`tools/check_toolbox_font.py` 已加入静态门禁，会报告缺失的码点。
+
 ## 图片（images）
 
 可复用的源图与生成的显示资产放在 `images/`。

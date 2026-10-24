@@ -17,6 +17,28 @@ Store reusable font files and generated font sources in `fonts/`.
 - Check Flash and internal-RAM impact before adding a font; the ESP32-C3 has no PSRAM.
 - Do not commit fonts whose license does not permit redistribution.
 
+### AI Toolbox fonts
+
+| File | Size / format | Use and source |
+| --- | --- | --- |
+| [`fonts/toolbox_font_12.c`](fonts/toolbox_font_12.c) | 12 px, 4 bpp, LVGL 9 C array | Compact names in the expiry and leaderboard lists. Same character set as the 14 px face. |
+| [`fonts/toolbox_font_14.c`](fonts/toolbox_font_14.c) | 14 px, 4 bpp, LVGL 9 C array | Body text for the AI Toolbox application. Generated from Noto Sans SC Regular (SIL Open Font License 1.1) plus the GB2312 level-1 character set and the application inventory. |
+| [`fonts/toolbox_font_20.c`](fonts/toolbox_font_20.c) | 20 px, 4 bpp, LVGL 9 C array | Titles and section headings; same character set as the 14 px face. |
+| [`fonts/toolbox_font_28.c`](fonts/toolbox_font_28.c) | 28 px, 4 bpp, LVGL 9 C array | Large traffic counter; digits and score punctuation only. |
+| [`fonts/toolbox_chars.txt`](fonts/toolbox_chars.txt) | UTF-8 text | Required application character inventory consumed by `tools/check_toolbox_font.py`. |
+
+Source font: [Noto Sans SC Regular](https://github.com/notofonts/noto-cjk), SIL Open Font License 1.1. The three C arrays are compiled through `target_sources` in `main/CMakeLists.txt`; they are not included from another source file. Regenerate with the pinned converter after changing the inventory:
+
+```bash
+npx -y lv_font_conv@1.5.2 --font NotoSansCJKsc-Regular.otf \
+  --symbols "$(cat assets/fonts/toolbox_chars.txt)" --size 20 --bpp 4 \
+  --format lvgl --no-compress --no-kerning \
+  --output assets/fonts/toolbox_font_20.c
+
+```
+
+The 12 px, 14 px and 20 px faces cover the inventory plus GB2312 level 1 (3,755 common Han characters), so ordinary site names and subscription names render without a rebuild. The subset is not a complete CJK font: a character outside the inventory can still show LVGL's missing-glyph placeholder. Add it to the inventory and regenerate both sizes; `tools/check_toolbox_font.py` runs in the static gate and fails with the missing code point.
+
 ## Images
 
 Store reusable source images and generated display assets in `images/`.
